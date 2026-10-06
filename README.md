@@ -43,7 +43,7 @@ El sistema permite que los empleados chateen en tiempo real de forma segura, uti
 ---
 ## 4. Estructura Inicial del Repositorio
 
-El proyecto se organiza en las siguientes carpetas[cite: 2]:
+El proyecto se organiza en las siguientes carpetas:
 
 ```text
 proyecto-integrador/
