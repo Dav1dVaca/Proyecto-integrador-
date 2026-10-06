@@ -23,3 +23,21 @@ El sistema permite que los empleados chateen en tiempo real de forma segura, uti
 
 ---
 
+---
+
+## 3. Alcance Preliminar 
+### Lo que hemos completado en esta etapa
+- [x] Descripción del problema de la empresa entre Quito y Cuenca.
+- [x] Justificación de por qué elegimos el chat empresarial y el lenguaje Go
+- [x] Lista de requisitos organizados con códigos para poder probarlos después
+- [x] Diagrama general y descripción paso a paso de los 3 casos de uso principales.
+- [x] Matriz de trazabilidad que conecta necesidades, objetivos y requisitos
+- [x] Estructura inicial del repositorio en Git y reparto de trabajo
+### Lo que desarrollaremos en las siguientes fases
+- [ ] Definir el formato exacto en el que viajarán los textos de los mensajes.
+- [ ] Asignar las direcciones de red para las computadoras de Quito y Cuenca
+- [ ] Programar el sistema de inicio de sesión en FastAPI
+- [ ] Programar el servidor y el programa de chat en Go
+- [ ] Probar la velocidad de envío y retraso de los mensajes para los cálculos de estadística
+
+---
