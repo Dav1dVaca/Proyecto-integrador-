@@ -1,0 +1,16 @@
+USUARIOS DE PRUEBA REGISTRADOS EN EL PROTOTIPO:
+
+1. Cuenta: josue
+   Nombre: Josue_Ramirez
+   Sede: Quito
+   Rol: Administrador
+
+2. Cuenta: david
+   Nombre: David_Vaca
+   Sede: Quito
+   Rol: Desarrollo
+
+3. Cuenta: adrian
+   Nombre: Adrian_Garcia
+   Sede: Cuenca
+   Rol: Soporte
