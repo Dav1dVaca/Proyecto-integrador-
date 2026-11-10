@@ -1,68 +1,92 @@
 # VARGA Chat – Plataforma Empresarial Distribuida
 
 Proyecto Integrador de Tercer Semestre de Ingeniería en Sistemas de Información (UIDE).  
-Sistema interno de mensajería para empresas, control de acceso y red entre dos sedes para la organización VARGA Solutions.
-
----
+Sistema interno de mensajería para empresas, control de acceso y red entre dos sedes para la organización **VARGA Solutions**
 
 ## 1. Descripción del Sistema
 
-VARGA Chat es una aplicación cliente-servidor desarrollada en Go para resolver los problemas de comunicación, fuga de datos importantes y pérdida de historial entre la matriz y la sucursal de la empresa VARGA Solutions.
+VARGA Chat es una aplicación cliente-servidor desarrollada en lenguaje Go para resolver los problemas de comunicación, fuga de datos importantes y pérdida de historial técnico entre la sede matriz (Quito) y la sucursal (Cuenca) de la empresa VARGA Solutions S.A.
 
-El sistema permite que los empleados chateen en tiempo real de forma segura, utiliza un servicio adicional en FastAPI para verificar usuarios y contraseñas mediante pases digitales de acceso, y una base de datos local para guardar los mensajes y consultarlos cuando sea necesario, además, funciona sobre una red privada empresarial conectada entre ambas ciudades.
+El sistema permite que los empleados se comuniquen en tiempo real mediante sockets TCP aplicando los pilares de Programación Orientada a Objetos (estructuras, constructores, encapsulamiento, métodos con receptores por puntero y composición). Además, cuenta con el diseño de seguridad para autenticación mediante FastAPI, almacenamiento de historial y segmentación de red entre ambas ciudades.
 
----
+## 2. Integrantes del Equipo y Contribuciones
 
-## 2. Integrantes del Equipo
-
-| Integrante | Responsabilidades Generales |
+| Integrante | Responsabilidades y Contribuciones |
 | :--- | :--- |
-| **Josue Ramírez** | Encargado de la seguridad, el servicio de inicio de sesión con FastAPI y la protección de contraseñas de los usuarios. |
-| **David Vaca** | Encargado de programar el cliente y el servidor de chat en Go, y de guardar los mensajes en la base de datos. |
-| **Adrian Garcia** | Encargado de configurar la red que une Quito y Cuenca, y de tomar las medidas numéricas para el análisis de estadística. |
+| **Josue Ramírez** | Diseño de estructuras POO (`internal/models`), validaciones de datos, diseño de arquitectura de seguridad (Fase 1 y Fase 2) y plan de pruebas de seguridad. |
+| **David Vaca** | Desarrollo del almacenamiento en memoria (`internal/storage`), lógica de negocio del servicio de chat (`internal/services`) y programación del cliente en Go (`cmd/client`). |
+| **Adrian Garcia** | Implementación del manejador de red TCP (`internal/handlers`), programación del servidor en Go (`cmd/server`), diseño de red inter-sedes y documentación técnica. |
 
----
+## 3. Estado y Avance del Proyecto
 
----
+### Lo que hemos completado hasta la Semana 10
+- [x] Descripción del problema de la empresa entre Quito y Cuenca y justificación tecnológica.
+- [x] Definición de requisitos funcionales, requisitos de seguridad, casos de uso y matriz de trazabilidad.
+- [x] Diseño de seguridad (Fase 2): flujo de autenticación, matriz de autorización por roles, protección de credenciales (almacenamiento vs. transmisión), controles de seguridad y plan de pruebas.
+- [x] Definición del protocolo de aplicación por comandos de texto (`LOGIN`, `ENVIAR`, `HISTORIAL`, `SALIR`) sobre sockets TCP.
+- [x] **Prototipo funcional cliente-servidor en Go (`app-go/`):**
+  - Procesos independientes para servidor y cliente con IP y puerto configurables.
+  - Estructuras encapsuladas (`Persona`, `Usuario`, `Mensaje`), constructores, métodos y composición.
+  - Gestión de usuarios y mensajes en memoria (`map` y `slice`).
+  - Validación de entradas vacías, usuarios inexistentes y manejo explícito de errores.
 
-## 3. Alcance Preliminar 
-### Lo que hemos completado en esta etapa
-- [x] Descripción del problema de la empresa entre Quito y Cuenca.
-- [x] Justificación de por qué elegimos el chat empresarial y el lenguaje Go
-- [x] Lista de requisitos organizados con códigos para poder probarlos después
-- [x] Diagrama general y descripción paso a paso de los 3 casos de uso principales.
-- [x] Matriz de trazabilidad que conecta necesidades, objetivos y requisitos
-- [x] Estructura inicial del repositorio en Git y reparto de trabajo
-### Lo que desarrollaremos en las siguientes fases
-- [ ] Definir el formato exacto en el que viajarán los textos de los mensajes.
-- [ ] Asignar las direcciones de red para las computadoras de Quito y Cuenca
-- [ ] Programar el sistema de inicio de sesión en FastAPI
-- [ ] Programar el servidor y el programa de chat en Go
-- [ ] Probar la velocidad de envío y retraso de los mensajes para los cálculos de estadística
+### Lo que desarrollaremos en las siguientes fases (Semanas 11 y 12)
+- [ ] Integración del cliente-servidor en Go con el servicio de autenticación en FastAPI.
+- [ ] Conexión con base de datos SQLite para persistencia permanente y hash de contraseñas.
+- [ ] Pruebas de comunicación sobre la topología de red entre Quito y Cuenca y toma de mediciones estadísticas.
 
----
-## 4. Estructura Inicial del Repositorio
+## 4. Estructura Actual del Repositorio
 
-El proyecto se organiza en las siguientes carpetas:
+El repositorio se organiza de forma modular de la siguiente manera:
 
 ```text
-proyecto-integrador/
-├── app-go/             # Programa del chat en Go (servidor y cliente)
-│   ├── cmd/            # Archivos para ejecutar el servidor y el cliente
-│   ├── internal/       # Lógica del chat y guardado de mensajes en SQLite
-│   └── README.md       # Guía de uso del programa en Go
-├── auth-service/       # Servicio de inicio de sesión en FastAPI
-│   ├── app/            # Código para comprobar usuarios y contraseñas
-│   ├── tests/          # Pruebas de acceso
-│   └── requirements.txt# Librerías de Python necesarias
-├── network/            # Archivos y respaldos de la red
-│   ├── configs/        # Respaldos de configuración de routers y switches
-│   ├── addressing/     # Lista de direcciones de red para Quito y Cuenca
-│   └── diagrams/       # Dibujos y diagramas de la red
-├── research/           # Carpeta para la materia de Estadística
-│   ├── instruments/    # Guía de cómo se toman las mediciones
-│   ├── data/           # Archivos con los datos de retraso y velocidad
-│   └── analysis/       # Gráficos y cálculos estadísticos
-├── docs/               # Documentos e informes de la materia
-├── LICENSE             # Licencia libre del proyecto
-└── README.md           # Explicación general del repositorio
+Proyecto-integrador-/
+├── app-go/                     # Prototipo funcional del chat en Go
+│   ├── cmd/
+│   │   ├── client/
+│   │   │   └── main.go         # Programa ejecutable del cliente
+│   │   └── server/
+│   │       └── main.go         # Programa ejecutable del servidor
+│   ├── internal/
+│   │   ├── models/
+│   │   │   └── models.go       # Estructuras Persona, Usuario y Mensaje (POO)
+│   │   ├── services/
+│   │   │   └── services.go     # Lógica de negocio y validaciones del chat
+│   │   ├── handlers/
+│   │   │   └── handlers.go     # Manejador de conexiones y comandos TCP
+│   │   └── storage/
+│   │       └── storage.go      # Almacenamiento en memoria (map y slice)
+│   ├── data/
+│   │   └── usuarios.txt        # Usuarios precargados para pruebas
+│   ├── go.mod                  # Definición del módulo en Go (Go 1.22)
+│   └── README.md               # Manual detallado del prototipo en Go
+├── docs/                       # Documentación e informes de avance
+├── LICENSE                     # Licencia MIT del proyecto
+└── README.md                   # Descripción general del proyecto
+```
+
+## 5. Ejecución Rápida del Prototipo en Go
+
+Para probar el prototipo funcional desarrollado en esta entrega (ver detalles completos en [`app-go/README.md`](./app-go/README.md)):
+
+1. **Iniciar el servidor** (Terminal 1):
+   ```bash
+   cd app-go
+   go run cmd/server/main.go
+   ```
+2. **Iniciar el cliente** (Terminal 2):
+   ```bash
+   cd app-go
+   go run cmd/client/main.go
+   ```
+   *Parámetros por defecto:* IP `127.0.0.1`, Puerto `9000`.  
+   *Usuarios de prueba:* `josue`, `david`, `adrian`.
+
+## 6. Licencia Seleccionada
+
+Este proyecto se distribuye bajo la **Licencia MIT**. Consulta el archivo [`LICENSE`](./LICENSE) en la raíz del repositorio para conocer los términos completos de uso y distribución.
+
+## 7. Créditos y Declaración del Uso de Herramientas de IA
+
+* **Créditos Académicos:** Proyecto desarrollado para las asignaturas de *Programación Orientada a Objetos*, *Fundamentos de la Seguridad de los Sistemas* y *Tecnologías de Comunicación de Información en Red* del Tercer Semestre de Ingeniería en Sistemas de Información en la Universidad Internacional del Ecuador (UIDE).
+* **Declaración del uso de herramientas de Inteligencia Artificial:** Durante el desarrollo del proyecto se empleó herramientas de inteligencia artificial como apoyo de consulta para estructurar la organización modular del repositorio, revisar buenas prácticas de encapsulamiento en Go y dar formato a las plantillas de documentación técnica. Todo el código fuente, validaciones y pruebas de ejecución fueron implementados, verificados y comprendidos íntegramente por los miembros del equipo.
